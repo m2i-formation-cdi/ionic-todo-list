@@ -24,5 +24,12 @@ export class HomePage implements OnInit{
    });
   }
 
+  deleteTask(pos){
+    //suppression de la tâche
+    this.todoList.splice(pos,1);
+    //sauvegarde
+    this.storage.set('todo-list', this.todoList);
+  }
+
 
 }
