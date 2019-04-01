@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { TodoService } from '../services/todo.service';
-import { Router } from '@angular/router';
+import { Router, ActivatedRoute } from '@angular/router';
 import { Storage } from '@ionic/storage';
 
 
@@ -14,9 +14,10 @@ export class FormPage implements OnInit {
   private task;
 
   constructor(
-    private todoService: TodoService, 
+    private todoService: TodoService,
     private router: Router,
-    private storage: Storage) { }
+    private storage: Storage,
+    private activeRoute: ActivatedRoute) { }
 
   ngOnInit() {
     this.task = {
@@ -24,19 +25,28 @@ export class FormPage implements OnInit {
       done: false,
       id: null
     }
-  }
+    let pos = this.activeRoute.snapshot.paramMap.get('pos');
 
-  validateForm(){
-    if(this.task.taskName){
-      
+    if (pos) {
       this.storage.get('todo-list').then(
         (data)=>{
+          this.task = data[pos];
+        }
+      )
+    }
+  }
+
+  validateForm() {
+    if (this.task.taskName) {
+
+      this.storage.get('todo-list').then(
+        (data) => {
           let todoList = data || [];
           todoList.push(this.task);
           this.storage.set('todo-list', todoList);
           this.router.navigateByUrl("/home");
         }
-      ); 
+      );
     }
   }
 

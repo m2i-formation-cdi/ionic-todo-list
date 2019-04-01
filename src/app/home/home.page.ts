@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { TodoService } from '../services/todo.service';
 import { Storage } from '@ionic/storage';
+import { Router } from '@angular/router';
+
 
 
 @Component({
@@ -14,7 +16,8 @@ export class HomePage implements OnInit{
 
   constructor(
     private todoService: TodoService, 
-    private storage:Storage){
+    private storage:Storage,
+    private router: Router){
     
   }
 
@@ -29,6 +32,10 @@ export class HomePage implements OnInit{
     this.todoList.splice(pos,1);
     //sauvegarde
     this.storage.set('todo-list', this.todoList);
+  }
+
+  showUpdateForm(pos){
+    this.router.navigateByUrl('/form/'+ pos);
   }
 
 
