@@ -10,7 +10,7 @@ import { Router } from '@angular/router';
   templateUrl: 'home.page.html',
   styleUrls: ['home.page.scss'],
 })
-export class HomePage implements OnInit{
+export class HomePage {
   
   private todoList;
 
@@ -21,7 +21,7 @@ export class HomePage implements OnInit{
     
   }
 
-  ngOnInit(): void {
+  ionViewWillEnter(): void {
    this.storage.get('todo-list').then((data)=>{
       this.todoList = data || [];
    });
