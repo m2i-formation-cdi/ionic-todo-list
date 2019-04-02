@@ -13,6 +13,8 @@ export class FormPage implements OnInit {
 
   private task;
 
+  private pos;
+
   constructor(
     private todoService: TodoService,
     private router: Router,
@@ -25,12 +27,13 @@ export class FormPage implements OnInit {
       done: false,
       id: null
     }
-    let pos = this.activeRoute.snapshot.paramMap.get('pos');
+    
+    this.pos = this.activeRoute.snapshot.paramMap.get('pos');
 
-    if (pos) {
+    if (this.pos) {
       this.storage.get('todo-list').then(
         (data)=>{
-          this.task = data[pos];
+          this.task = data[this.pos];
         }
       )
     }
@@ -42,8 +45,16 @@ export class FormPage implements OnInit {
       this.storage.get('todo-list').then(
         (data) => {
           let todoList = data || [];
-          todoList.push(this.task);
+
+          //Ajout ou modification en fonction de la valeur de pos
+          if(this.pos){
+            todoList[this.pos] = this.task;
+          } else {
+            todoList.push(this.task);
+          }
+          
           this.storage.set('todo-list', todoList);
+
           this.router.navigateByUrl("/home");
         }
       );
