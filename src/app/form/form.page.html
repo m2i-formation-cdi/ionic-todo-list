@@ -13,6 +13,14 @@
     </ion-item>
   </ion-list>
 
+  <ion-button expand="full" (click)="takePicture()">
+    Prendre une photo
+  </ion-button>
+
+  <div *ngIf="pictureData">
+    <ion-img src="data:image/jpeg;base64,"{{pictureData}}></ion-img>
+  </div>
+
 </ion-content>
 
 <ion-footer>

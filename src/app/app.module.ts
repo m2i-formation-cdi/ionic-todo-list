@@ -11,6 +11,7 @@ import { AppRoutingModule } from './app-routing.module';
 import { TodoService } from './services/todo.service';
 
 import { IonicStorageModule} from '@ionic/storage';
+import { Camera } from '@ionic-native/camera/ngx';
 
 
 @NgModule({
@@ -26,6 +27,7 @@ import { IonicStorageModule} from '@ionic/storage';
     StatusBar,
     SplashScreen,
     TodoService,
+    Camera,
     { provide: RouteReuseStrategy, useClass: IonicRouteStrategy }
   ],
   bootstrap: [AppComponent]

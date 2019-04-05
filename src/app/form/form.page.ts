@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { TodoService } from '../services/todo.service';
 import { Router, ActivatedRoute } from '@angular/router';
 import { Storage } from '@ionic/storage';
+import { Camera, CameraOptions } from '@ionic-native/camera/ngx';
 
 
 @Component({
@@ -15,11 +16,14 @@ export class FormPage implements OnInit {
 
   private pos;
 
+  public pictureData;
+
   constructor(
     private todoService: TodoService,
     private router: Router,
     private storage: Storage,
-    private activeRoute: ActivatedRoute) { }
+    private activeRoute: ActivatedRoute,
+    private camera: Camera) { }
 
   ngOnInit() {
     this.task = {
@@ -59,6 +63,23 @@ export class FormPage implements OnInit {
         }
       );
     }
+  }
+
+  takePicture(){
+    const cameraOptions:CameraOptions = {
+      quality: 60,
+      destinationType: this.camera.DestinationType.FILE_URI,
+      targetWidth: 500,
+      targetHeight: 500,
+      mediaType: this.camera.MediaType.PICTURE,
+      encodingType: this.camera.EncodingType.JPEG
+    }
+
+    this.camera.getPicture(cameraOptions).then(
+      (cameraData)=>{
+        this.pictureData = cameraData;
+      }
+    )
   }
 
 }
