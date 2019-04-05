@@ -12,7 +12,7 @@ import { Router } from '@angular/router';
 })
 export class HomePage {
   
-  private todoList;
+  public todoList;
 
   constructor(
     private todoService: TodoService, 

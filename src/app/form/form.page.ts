@@ -11,7 +11,7 @@ import { Storage } from '@ionic/storage';
 })
 export class FormPage implements OnInit {
 
-  private task;
+  public task;
 
   private pos;
 
@@ -27,7 +27,7 @@ export class FormPage implements OnInit {
       done: false,
       id: null
     }
-    
+
     this.pos = this.activeRoute.snapshot.paramMap.get('pos');
 
     if (this.pos) {
